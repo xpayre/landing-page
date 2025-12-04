@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Consultation – Bitcoin Payment</title>
+
+  <style>
+    body { font-family: Arial; padding: 40px; background: #f5f5f5; }
+    #contactForm { display:none; margin-top: 30px; }
+    input, button { padding: 12px; margin: 10px 0; width: 100%; }
+    button { background: black; color: white; border: none; cursor: pointer; }
+    button:hover { opacity: 0.85; }
+    #qr { width: 200px; margin-top:20px; }
+  </style>
+</head>
+
+<body>
+
+<h1>Book a Consultation</h1>
+<p>Price: <strong>0.003 BTC</strong></p>
+
+<h3>Step 1 — Pay with Bitcoin</h3>
+<p>Send exactly <strong>0.003 BTC</strong> to:</p>
+<code id="btcAddress">YOUR_BTC_ADDRESS</code>
+
+<img id="qr" src="" alt="QR Code">
+
+<p>Waiting for payment confirmation...</p>
+<p id="status">⏳ Waiting for transaction...</p>
+
+
+<form id="contactForm">
+  <h3>Payment confirmed! Enter your contact info:</h3>
+
+  <input type="email" id="email" placeholder="Email (required)" required>
+  <input type="text" id="whatsapp" placeholder="WhatsApp Number">
+  <input type="text" id="telegram" placeholder="Telegram Username">
+  <input type="text" id="phone" placeholder="Phone Number">
+
+  <button type="button" onclick="sendToTelegram()">Send Info</button>
+</form>
+
+<p id="msg"></p>
+
+<script>
+// ---- Settings ----
+const btcAddress = "YOUR_BTC_ADDRESS";
+const amountBtc = 0.003;
+const botToken = "YOUR_TELEGRAM_BOT_TOKEN";
+const chatId = "YOUR_TELEGRAM_CHAT_ID";
+
+// ---- Generate QR code ----
+document.getElementById("qr").src =
+  "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:" +
+  btcAddress + "?amount=" + amountBtc;
+
+document.getElementById("btcAddress").innerText = btcAddress;
+
+// ---- Poll blockchain for payment ----
+async function checkPayment() {
+  const url = `https://api.blockchair.com/bitcoin/dashboards/address/${btcAddress}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const txs = data.data[btcAddress].transactions;
+
+  if (txs.length === 0) return; // No payments yet
+
+  const txid = txs[0];
+
+  // Get TX details
+  const txUrl = `https://api.blockchair.com/bitcoin/dashboards/transaction/${txid}`;
+  const txRes = await fetch(txUrl);
+  const txData = await txRes.json();
+
+  const outputs = txData.data[txid].outputs;
+
+  // Check if payment matches amount and address
+  const paid = outputs.some(o =>
+    o.recipient === btcAddress &&
+    o.value === amountBtc * 100000000
+  );
+
+  if (paid) {
+    document.getElementById("status").innerText = "✅ Payment received!";
+    document.getElementById("contactForm").style.display = "block";
+    return true;
+  }
+}
+
+// Check every 10 seconds
+setInterval(checkPayment, 10000);
+
+// ---- Send contact info to Telegram ----
+function sendToTelegram() {
+  const email = document.getElementById("email").value;
+  const whatsapp = document.getElementById("whatsapp").value;
+  const telegram = document.getElementById("telegram").value;
+  const phone = document.getElementById("phone").value;
+
+  const message = `
+📩 New Paid Consultation
+-------------------------
+Email: ${email}
+WhatsApp: ${whatsapp}
+Telegram: ${telegram}
+Phone: ${phone}
+Paid: ${amountBtc} BTC
+  `;
+
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}` +
+    `&text=${encodeURIComponent(message)}`;
+
+  fetch(url)
+    .then(() => {
+      document.getElementById("msg").innerText = "Thank you! I will contact you soon.";
+      document.getElementById("contactForm").style.display = "none";
+    })
+    .catch(() => alert("Error sending info."));
+}
+</script>
+
+</body>
+</html>
