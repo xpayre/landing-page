@@ -1,20 +1,160 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crypto • Real Estate Advisory – Raf Varone</title>
-    <link rel="stylesheet" href="styles/main.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raf Varone — Crypto Real Estate Advisor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-900 text-gray-100 antialiased">
 
-    <div id="app">
+  <!-- NAV -->
+  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <div class="w-12 h-12 rounded-md bg-gradient-to-br from-yellow-500 to-yellow-400 flex items-center justify-center text-black font-bold">RV</div>
+      <div>
+        <h1 class="text-lg font-semibold">Raf Varone</h1>
+        <p class="text-sm text-gray-300">Crypto Real Estate Advisor</p>
+      </div>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a href="#services" class="hover:text-white">Services</a>
+      <a href="#guide" class="hover:text-white">Guide</a>
+      <a href="#about" class="hover:text-white">About</a>
+      <a href="#contact" class="hover:text-white">Contact</a>
+    </nav>
+  </header>
 
-        <!-- Sections will be loaded here -->
-        <div id="content"></div>
+  <!-- HERO -->
+  <section class="relative">
+    <div class="h-80 md:h-96 w-full overflow-hidden bg-black flex items-center justify-center relative">
+      <img src="banner.jpg" alt="Hero" class="w-full h-full object-cover opacity-80" />
+      <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+      <div class="absolute left-6 top-1/3 max-w-2xl">
+        <h2 class="text-3xl md:text-5xl font-serif text-yellow-400 leading-tight">Transforming Digital Wealth Into Global Real Estate</h2>
+        <p class="mt-4 text-gray-200 max-w-xl">Expert advisory for high‑net‑worth investors converting cryptocurrency into luxury property — secure, compliant and discreet.</p>
+        <div class="mt-6 flex gap-4">
+          <a href="guide.pdf" class="inline-block bg-yellow-500 text-black font-semibold px-5 py-3 rounded shadow">Download Guide</a>
+          <a href="brochure.pdf" class="inline-block border border-gray-600 px-5 py-3 rounded text-gray-200">Download Brochure</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- SERVICES -->
+  <section id="services" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h3 class="text-2xl font-semibold text-yellow-400">What We Do</h3>
+        <p class="mt-4 text-gray-300">We provide end-to-end crypto-to-property advisory for discerning investors. From wallet verification and escrow structures to cross-border compliance and luxury property acquisition, our services protect your wealth while unlocking exclusive opportunities.</p>
+
+        <ul class="mt-6 space-y-4">
+          <li class="flex gap-3 items-start">
+            <div class="w-10 h-10 rounded bg-yellow-500 flex items-center justify-center text-black font-bold">1</div>
+            <div>
+              <strong>Crypto-to-Property Advisory</strong>
+              <div class="text-sm text-gray-300">Structured, compliant transaction design and settlement support.</div>
+            </div>
+          </li>
+
+          <li class="flex gap-3 items-start">
+            <div class="w-10 h-10 rounded bg-yellow-500 flex items-center justify-center text-black font-bold">2</div>
+            <div>
+              <strong>Wealth Conversion Strategy</strong>
+              <div class="text-sm text-gray-300">Tax-aware approaches to convert digital gains into stable property holdings.</div>
+            </div>
+          </li>
+
+          <li class="flex gap-3 items-start">
+            <div class="w-10 h-10 rounded bg-yellow-500 flex items-center justify-center text-black font-bold">3</div>
+            <div>
+              <strong>Tokenization & Developer Advisory</strong>
+              <div class="text-sm text-gray-300">Guidance on fractionalization, token economics and investor access.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-lg bg-gradient-to-br from-black/60 to-gray-900 p-6 border border-gray-800">
+        <h4 class="text-xl font-semibold text-yellow-400">Client Profile</h4>
+        <p class="mt-3 text-gray-300">High-net-worth individuals, international investors, family offices and developers seeking secure pathways from crypto into premium real estate.</p>
+
+        <div class="mt-6 space-y-3 text-gray-300 text-sm">
+          <div class="flex justify-between"><span>Average transaction size</span><strong>€750k+</strong></div>
+          <div class="flex justify-between"><span>Typical turnaround</span><strong>6–12 weeks</strong></div>
+        </div>
+
+        <div class="mt-6">
+          <a href="pitchdeck.pdf" class="block text-center border border-yellow-500 px-4 py-2 rounded text-yellow-400">Download Pitch Deck</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDE CTA -->
+  <section id="guide" class="bg-gradient-to-r from-black to-gray-900 py-12">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h4 class="text-2xl text-yellow-400 font-semibold">Free Guide: How to Buy Real Estate With Crypto</h4>
+        <p class="mt-3 text-gray-300 max-w-xl">Get the step-by-step checklist, escrow structure template, and compliance tips used with real clients.</p>
+      </div>
+      <div class="flex gap-4">
+        <a href="guide.pdf" class="bg-yellow-500 text-black px-5 py-3 rounded font-semibold">Download Now</a>
+        <a href="brochure.pdf" class="border border-gray-600 px-5 py-3 rounded text-gray-200">Brochure</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="max-w-6xl mx-auto px-6 py-12">
+    <div class="md:flex gap-8 items-center">
+      <div class="md:w-1/2">
+        <h4 class="text-2xl font-semibold text-yellow-400">About Raf Varone</h4>
+        <p class="mt-4 text-gray-300">Founder of the first crypto index and former crypto exchange owner, Raf blends three decades of trading and finance expertise with two decades in real estate.</p>
+        <ul class="mt-4 text-gray-300 list-disc pl-5 space-y-2">
+          <li>Founder, first crypto index</li>
+          <li>Former crypto exchange owner</li>
+          <li>Token creation & advisory</li>
+        </ul>
+      </div>
+      <div class="md:w-1/2">
+        <div class="rounded-lg overflow-hidden border border-gray-800">
+          <img src="banner.jpg" alt="Raf" class="w-full h-56 object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <footer id="contact" class="bg-black border-t border-gray-800"> 
+    <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-6">
+      <div>
+        <h5 class="text-yellow-400 font-semibold">Get In Touch</h5>
+        <p class="text-gray-300 mt-3">For advisory enquiries or partnerships, email <a href="mailto:hello@rafvarone.com" class="text-yellow-400">hello@rafvarone.com</a>.</p>
+      </div>
+
+      <div>
+        <h5 class="text-yellow-400 font-semibold">Quick Links</h5>
+        <ul class="text-gray-300 mt-3 space-y-2">
+          <li><a href="guide.pdf" class="hover:text-yellow-400">Download Guide</a></li>
+          <li><a href="brochure.pdf" class="hover:text-yellow-400">Services Brochure</a></li>
+          <li><a href="pitchdeck.pdf" class="hover:text-yellow-400">Pitch Deck</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="text-yellow-400 font-semibold">Contact Form</h5>
+        <form action="mailto:hello@rafvarone.com" method="post" class="mt-3 flex flex-col gap-3">
+          <input name="name" placeholder="Your name" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-200" />
+          <input name="email" placeholder="Email" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-200" />
+          <textarea name="message" rows="3" placeholder="How can I help?" class="px-3 py-2 bg-gray-800 border border-gray-700 rounded text-gray-200"></textarea>
+          <button class="mt-2 bg-yellow-500 text-black px-4 py-2 rounded font-semibold">Send</button>
+        </form>
+      </div>
     </div>
 
-    <script src="scripts/app.js"></script>
+    <div class="text-center text-gray-600 text-sm py-6">© 2025 Raf Varone — Crypto Real Estate Advisory</div>
+  </footer>
+
 </body>
 </html>
