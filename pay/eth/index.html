@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Book Consultation</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.7.5/dist/web3.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 40px; background: #f5f5f5; }
+    #contactForm { display:none; margin-top: 30px; }
+    input, button { padding: 12px; margin: 10px 0; width: 100%; }
+    button { background: black; color: white; border: none; cursor: pointer; }
+    button:hover { opacity: 0.8; }
+  </style>
+</head>
+
+<body>
+
+  <h1>Book a Consultation</h1>
+  <p>Price: <strong>0.02 ETH</strong></p>
+
+  <button id="payBtn">Pay with MetaMask</button>
+
+  <form id="contactForm">
+    <h3>Payment successful! Enter your contact info:</h3>
+
+    <input type="email" id="email" placeholder="Email (required)" required>
+    <input type="text" id="whatsapp" placeholder="WhatsApp Number">
+    <input type="text" id="telegram" placeholder="Telegram Username">
+    <input type="text" id="phone" placeholder="Phone Number">
+
+    <button type="button" onclick="sendToTelegram()">Send Info</button>
+  </form>
+
+  <p id="msg"></p>
+
+<script>
+const walletAddress = "YOUR_ETH_WALLET_ADDRESS";
+const amountEth = "0.02";
+
+// ---- Trigger MetaMask Payment ----
+document.getElementById("payBtn").onclick = async () => {
+  if (!window.ethereum) {
+    alert("MetaMask not detected!");
+    return;
+  }
+
+  const web3 = new Web3(window.ethereum);
+  await ethereum.request({ method: "eth_requestAccounts" });
+  const accounts = await web3.eth.getAccounts();
+
+  try {
+    await web3.eth.sendTransaction({
+      from: accounts[0],
+      to: walletAddress,
+      value: web3.utils.toWei(amountEth, "ether")
+    });
+
+    document.getElementById("contactForm").style.display = "block";
+    document.getElementById("payBtn").style.display = "none";
+
+  } catch (err) {
+    alert("Payment failed or cancelled.");
+  }
+};
+
+// ---- Send Data to Telegram Bot ----
+function sendToTelegram() {
+  const email = document.getElementById("email").value;
+  const whatsapp = document.getElementById("whatsapp").value;
+  const telegram = document.getElementById("telegram").value;
+  const phone = document.getElementById("phone").value;
+
+  const botToken = "YOUR_TELEGRAM_BOT_TOKEN";
+  const chatId = "YOUR_TELEGRAM_CHAT_ID";
+
+  const message = `
+📩 New Paid Consultation
+-------------------------
+Email: ${email}
+WhatsApp: ${whatsapp}
+Telegram: ${telegram}
+Phone: ${phone}
+Paid: ${amountEth} ETH
+  `;
+
+  const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}` +
+              `&text=${encodeURIComponent(message)}`;
+
+  fetch(url)
+    .then(() => {
+      document.getElementById("msg").innerText = "Thank you! I will contact you soon.";
+      document.getElementById("contactForm").style.display = "none";
+    })
+    .catch(() => alert("Error sending info."));
+}
+</script>
+
+</body>
+</html>
